@@ -1,0 +1,169 @@
+﻿<Window x:Class="WeatherProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:WeatherProject"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Height="800"
+        Width="1200">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+
+    <Border Name="brdMain" BorderBrush="PeachPuff" BorderThickness="2" CornerRadius="35" ClipToBounds="True" Background="CadetBlue">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="6*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <!--Top Part-->
+            <Border BorderThickness="0 0 0 2" BorderBrush="{Binding ElementName=brdMain, Path=BorderBrush}"
+                    Grid.ColumnSpan="2" Padding="30 0">
+                <Grid>
+                    <TextBlock Text="Сервисное ПО Погода" VerticalAlignment="Center" HorizontalAlignment="Left"
+                               FontSize="50" Foreground="{Binding ElementName=brdMain, Path=BorderBrush}"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="navButtonHide" Style="{StaticResource navigateButtonStyle}">
+                            <TextBlock Text="𑁋" FontSize="16" Margin="0 0 0 -10" FontWeight="ExtraBold"/>
+                        </Button>
+                        <Button x:Name="navButtonSizeUp" Style="{StaticResource navigateButtonStyle}">
+                            <Icon:MaterialDesign Kind="CropSquare"/>
+                        </Button>
+                        <Button x:Name="navButtonClose" Style="{StaticResource navigateButtonStyle}">
+                            <Icon:MaterialDesign Kind="Close"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+            </Border>
+
+            <!--Middle Left Part-->
+            <Border Grid.Row="1" Grid.Column="0" BorderBrush="PeachPuff" BorderThickness="0 0 2 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0 60 0 0">
+                        <TextBlock Margin="34 0 30 0" VerticalAlignment="Center" Foreground="#868686"
+                               Panel.ZIndex="1" IsHitTestVisible="False" Text="Название станции ..." 
+                               Visibility="{Binding ElementName=inputTextBoxStationName, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}" 
+                               FontSize="17"/>
+
+                        <TextBox x:Name="inputTextBoxStationName" Style="{StaticResource inputTextBoxStyle}"/>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+
+                        <!--#region Input TextBox Date-->
+                        <TextBlock Margin="34 20 200 0" VerticalAlignment="Top" Foreground="#868686"
+                               Panel.ZIndex="1" IsHitTestVisible="False" Text="Дата ( дд.мм.гг. ) ..." 
+                               Visibility="{Binding ElementName=inputTextBoxDate, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}" 
+                               FontSize="17"/>
+
+                        <TextBox x:Name="inputTextBoxDate" Style="{StaticResource inputTextBoxStyle}" Margin="20 10 200 10"/>
+                        <!--#endregion-->
+
+                        <Border Grid.Row="1" Margin="220 10 20 0" CornerRadius="10" Background="PeachPuff" Padding="0 20">
+                            <Grid>
+                                <StackPanel>
+                                    <TextBlock Text="Период поиска" HorizontalAlignment="Center" FontSize="17" Foreground="#868686">
+
+                                    </TextBlock>
+
+                                    <StackPanel HorizontalAlignment="Center" Margin="0 20 0 0">
+                                        <ToggleButton x:Name="toggleBtnDay" Style="{DynamicResource ToggleButtonStyle1}"
+                                                      Content="1 стуки" Checked="ToggleButton_Checked"/>
+                                        <ToggleButton x:Name="toggleBtnWeek" Style="{DynamicResource ToggleButtonStyle1}" 
+                                                      Content="Неделя" Margin="0 10 0 10" Checked="ToggleButton_Checked"/>
+                                        <ToggleButton x:Name="toggleBtnMonth" Style="{DynamicResource ToggleButtonStyle1}" 
+                                                      Content="Месяц" Checked="ToggleButton_Checked"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+
+                        </Border>
+
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+
+                        <Button Style="{StaticResource searchButtonStyle}" Content="Начать поиск" Margin="0 0 0 86"/>
+
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+
+            <!--Middle Right Part-->
+            <Border Grid.Row="1" Grid.Column="1" Padding="20 20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="0"/>
+
+                    <Grid Grid.Row="1">
+
+                        <Button x:Name="saveTableButton" Style="{StaticResource saveButtonsStyle}" Content="Сохранить таблицу" HorizontalAlignment="Left"/>
+
+                        <Button x:Name="saveInPDFButton" Style="{StaticResource saveButtonsStyle}" Content="Сохранить в pdf" HorizontalAlignment="Right"/>
+
+                    </Grid>
+
+                </Grid>
+            </Border>
+
+            <!--Bottom Part-->
+            <Border Grid.ColumnSpan="2" Grid.Row="2" BorderThickness="0 2 0 0" BorderBrush="PeachPuff">
+
+
+                <Border BorderThickness="2" BorderBrush="PeachPuff" Margin="20 30" CornerRadius="10">
+                    <StackPanel Orientation="Horizontal">
+
+                        <Border CornerRadius="6 0 0 6" Background="PeachPuff" Padding="10 0" Margin="0 -1">
+                            <TextBlock Text="Формирование базы данных о погоде" FontSize="17" Foreground="#868686" 
+                               VerticalAlignment="Center" />
+                        </Border>
+
+
+                        <ProgressBar Width="833" Background="Transparent" BorderThickness="0">
+                            <ProgressBar.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="0 8 8 0" />
+                                </Style>
+                            </ProgressBar.Resources>
+                        </ProgressBar>
+
+
+                    </StackPanel>
+                </Border>
+
+            </Border>
+
+        </Grid>
+
+    </Border>
+</Window>
