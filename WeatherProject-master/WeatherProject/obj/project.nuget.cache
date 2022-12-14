@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "yuhpBNd7ZSLmt16X+YH63YYrTccb947yGrk6R2uOu0+JTkH0oz5c4e/6ew/hw0+B4XXVDEzAxgwT9oJEhKLYVQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Mike\\Desktop\\WeatherProject-master\\WeatherProject\\WeatherProject.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Mike\\.nuget\\packages\\mahapps.metro.iconpacks.materialdesign\\4.11.0\\mahapps.metro.iconpacks.materialdesign.4.11.0.nupkg.sha512"
+  ],
+  "logs": []
+}
